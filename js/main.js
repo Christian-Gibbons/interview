@@ -73,7 +73,7 @@ window.onload = function() {
 	var numQuestions = 43;
 	//var start = 1;
 
-	var score = 0;
+	var points = 0;
 	function create() {
 		var styleQ = { font: "20px Verdana", fill: "#9999ff", align: "center" };
 		var styleA = { font: "14px Verdana", fill: "#ffffff", align: "left" };
@@ -134,7 +134,7 @@ window.onload = function() {
 	function down(item) {
 		if(item.name === "begin"){
 			item.destroy(true);
-			start = 0;
+//			start = 0;
 		}
 	}
 
