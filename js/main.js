@@ -175,7 +175,7 @@ window.onload = function() {
 			q_index = 0;
 		}
 		else{
-			if(q_index === 43){
+			//if(q_index === 43){
 				var job;
 				if(lastIndex === 15){
 					job = "Drunken Hobo.";
@@ -339,7 +339,7 @@ window.onload = function() {
 					}
 				}
 				questionText.text = "Your score was: " + points + ".  Your job fit is " + job;
-			}
+		//	}
 			else{
 				for(var i=0; i<question[q_index].answerNum;i++){
 					if(item.name === "answer " + i){
