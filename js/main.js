@@ -337,9 +337,9 @@ window.onload = function() {
 							job = "Tele Credit Card Sales";
 						}
 					}
-				}
+				//}
 				questionText.text = "Your score was: " + points + ".  Your job fit is " + job;
-		//	}
+			}
 			else{
 				for(var i=0; i<question[q_index].answerNum;i++){
 					if(item.name === "answer " + i){
