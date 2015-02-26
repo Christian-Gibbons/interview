@@ -71,7 +71,7 @@ window.onload = function() {
 	var q_index = 0;
 	var a_index = 0;
 
-	const numQuestions = 43;
+	var numQuestions = 43;
 	var start = 1;
 
 	var points = 0;
