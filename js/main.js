@@ -94,7 +94,7 @@ window.onload = function() {
 			answerText[i].events.onInputDown.add(down, this);
 			answerText[i].events.onInputUp.add(up, this);
 		}
-		answerRect[4] = new Phaser.Rectangle(3*game.world.width/8 + 15, 250, games.world.width/4 - 30, game.world.height-450);
+		answerRect[4] = new Phaser.Rectangle(3*game.world.width/8 + 15, 250, game.world.width/4 - 30, game.world.height-450);
 		answerText[4] = game.add.text(answerRect[4].x, answerRect[4].y, "", styleA);
 		answerText[4].name = "answer 4";
 		answerText[4].wordWrap = true;
@@ -103,7 +103,7 @@ window.onload = function() {
 		answerText[4].events.onInputDown.add(down, this);
 		answerText[4].events.onInputUp.add(up, this);
 
-		answerRect[5] = new Phaser.Rectangle(5*game.world.width/8 + 15, 250, games.world.width/4 - 30, game.world.height-450);
+		answerRect[5] = new Phaser.Rectangle(5*game.world.width/8 + 15, 250, game.world.width/4 - 30, game.world.height-450);
 		answerText[5] = game.add.text(answerRect[5].x, answerRect[5].y, "", styleA);
 		answerText[5].name = "answer 4";
 		answerText[5].wordWrap = true;
