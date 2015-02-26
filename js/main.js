@@ -353,6 +353,9 @@ window.onload = function() {
 		}
 		else{
 			questionText.text = "Your score was: " + points + ".  Your job fit is " + job;
+			for(var i=0; i<6; i++){
+				answerText[i].text = "";
+			}
 		}
 	}
 	function loadQuestion(){
