@@ -69,21 +69,20 @@ window.onload = function() {
 	var question = [];
 	var questionAudio = [];
 	var q_index = 0;
-	var a_index = 0;
 
 	var numQuestions = 43;
-	var start = 1;
+	//var start = 1;
 
-	var points = 0;
+	var score = 0;
 	function create() {
-		var styleQ = { font: "25px Verdana", fill: "#9999ff", align: "center" };
-		var styleA = { font: "16px Verdana", fill: "#ffffff", align: "left" };
+		var styleQ = { font: "20px Verdana", fill: "#9999ff", align: "center" };
+		var styleA = { font: "14px Verdana", fill: "#ffffff", align: "left" };
 
 		populateQuestions(question);
-		questionRect = new Phaser.Rectangle(20, 20, game.world.width -40, 50);
+		questionRect = new Phaser.Rectangle(game.world.width/2, 20, game.world.width -40, 50);
 
 		for(var i=0; i<4; i++){
-			answerRect[i] = new Phaser.Rectangle(i*game.world.width/4 + 15, 450, game.world.width/4 - 30, game.world.height-450);
+			answerRect[i] = new Phaser.Rectangle(i*game.world.width/4 + 15, 340, game.world.width/4 - 30, game.world.height-340);
 
 			answerText[i] = game.add.text(answerRect[i].x, answerRect[i].y, "", styleA);
 			answerText[i].name = "answer "+i;
@@ -94,7 +93,7 @@ window.onload = function() {
 			answerText[i].events.onInputDown.add(down, this);
 			answerText[i].events.onInputUp.add(up, this);
 		}
-		answerRect[4] = new Phaser.Rectangle(3*game.world.width/8 + 15, 250, game.world.width/4 - 30, game.world.height-450);
+		answerRect[4] = new Phaser.Rectangle(1*game.world.width/8 + 15, 140, game.world.width/4 - 30, 200);
 		answerText[4] = game.add.text(answerRect[4].x, answerRect[4].y, "", styleA);
 		answerText[4].name = "answer 4";
 		answerText[4].wordWrap = true;
@@ -103,7 +102,7 @@ window.onload = function() {
 		answerText[4].events.onInputDown.add(down, this);
 		answerText[4].events.onInputUp.add(up, this);
 
-		answerRect[5] = new Phaser.Rectangle(5*game.world.width/8 + 15, 250, game.world.width/4 - 30, game.world.height-450);
+		answerRect[5] = new Phaser.Rectangle(5*game.world.width/8 + 15, 140, game.world.width/4 - 30, 200);
 		answerText[5] = game.add.text(answerRect[5].x, answerRect[5].y, "", styleA);
 		answerText[5].name = "answer 4";
 		answerText[5].wordWrap = true;
@@ -120,6 +119,7 @@ window.onload = function() {
 		click.events.onInputUp.add(up, this);
 
 		questionText = game.add.text( questionRect.x , questionRect.y,"", styleQ );
+		questionText.anchor.setTo(0.5,0.0);
 		questionText.wordWrap = true;
 		questionText.wordWrapWidth = questionRect.width;
 
@@ -128,13 +128,7 @@ window.onload = function() {
 		}
 	}
 
-	function update() {/*
-		if(start === 0){
-			questionAudio[q_index].play();
-			for(var i=0; i<4; i++){
-				answerText[i].text = question[q_index].text[i];
-			}
-		}*/
+	function update() {
 	}
 
 	function down(item) {
@@ -147,7 +141,7 @@ window.onload = function() {
 	function up(item) {
 		if(item.name === "begin"){
 			item.destroy(true);
-			start = 0;
+//			start = 0;
 			q_index = 0;
 		}
 		else{
@@ -160,7 +154,6 @@ window.onload = function() {
 			}
 		}
 		loadQuestion();
-//	    item.text = "thanks for clicking!";
 
 	}
 	function loadQuestion(){
@@ -173,8 +166,15 @@ window.onload = function() {
 		
 	}
 	function loadAnswers(){
-		for(var i=0; i<6; i++){
+		for(var i=0; i<4; i++){
 			answerText[i].text = question[q_index].text[i];
+		}
+		if(q_index === 18){
+			answerText[4].text = question[q_index].text[4];
+			answerText[5].text = question[q_index].text[5];
+		}
+		else if(q_index === 34){
+			answerText[4].text = question[q_index].text[4];
 		}
 	}
 	function populateQuestions(question){
@@ -189,7 +189,7 @@ window.onload = function() {
 		question[0].points[0] = 0;
 		question[0].text[1] = "Yes, a bottle of water if you don't mind.";
 		question[0].next[1] = 6;
-		question[0].points[1] = 0;
+		question[0].points[1] = 1;
 		question[0].text[2] = "Yes, if you have a Coke that would be great.";
 		question[0].next[2] = 2;
 		question[0].points[2] = 0;
@@ -224,16 +224,16 @@ window.onload = function() {
 		question[2].answerNum = 4;
 		question[2].text[0] = "Yes, Even Better";
 		question[2].next[0] = 6;
-		question[2].points[0] = 0;
+		question[2].points[0] = -1;
 		question[2].text[1] = "That will be just fine.";
 		question[2].next[1] = 6;
 		question[2].points[1] = 0;
 		question[2].text[2] = "That's Okay, I'll pass.";
 		question[2].next[2] = 6;
-		question[2].points[2] = 0;
+		question[2].points[2] = -1;
 		question[2].text[3] = "Ugh, no, did I ASK for Pepsi? No! Then why would that be OK?";
 		question[2].next[3] = 5;
-		question[2].points[3] = 0;
+		question[2].points[3] = -3;
 
 		question.push({});
 		question[3].text = new Array();
@@ -246,13 +246,13 @@ window.onload = function() {
 		question[3].points[0] = 0;
 		question[3].text[1] = "It was Great, maybe after we are done we will do another";
 		question[3].next[1] = 6;
-		question[3].points[1] = 0;
+		question[3].points[1] = 1;
 		question[3].text[2] = "Ugh, it was awful, and yes, I'll have another";
 		question[3].next[2] = 4;
 		question[3].points[2] = 0;
 		question[3].text[3] = "That was disgusting, you have all the choice in the world but you choose that cat piss, I don't get people like you";
 		question[3].next[3] = 6;
-		question[3].points[3] = 0;
+		question[3].points[3] = -3;
 
 		question.push({});
 		question[4].text = new Array();
@@ -262,13 +262,13 @@ window.onload = function() {
 		question[4].answerNum = 3;
 		question[4].text[0] = "Yes, I am drunk all the time.";
 		question[4].next[0] = 7
-		question[4].points[0] = 0;
+		question[4].points[0] = -2;
 		question[4].text[1] = "I just have a weak spot for good Bourbon.";
 		question[4].next[1] = 7
 		question[4].points[1] = 0;
 		question[4].text[2] = "Some say that I am, but I am in control.";
 		question[4].next[2] = 7
-		question[4].points[2] = 0;
+		question[4].points[2] = -1;
 		question[4].text[3] = "";
 		question[4].next[3] = q_index;
 		question[4].points[3] = 0;
@@ -284,10 +284,10 @@ window.onload = function() {
 		question[5].points[0] = 0;
 		question[5].text[1] = "That's ok, let's just get started, shall we?";
 		question[5].next[1] = 6;
-		question[5].points[1] = 0;
+		question[5].points[1] = -1;
 		question[5].text[2] = "I'm sorry, I have just been under a lot of stress lately.";
 		question[5].next[2] = 6;
-		question[5].points[2] = 0;
+		question[5].points[2] = 1;
 		question[5].text[3] = "";
 		question[5].next[3] = q_index;
 		question[5].points[3] = 0;
@@ -296,39 +296,39 @@ window.onload = function() {
 		question[6].text = new Array();
 		question[6].next = new Array();
 		question[6].points = new Array();
-		question[6].q = "Ok, here we go, let's get started then. How are you doing today?";
+		question[6].q = "Ok, let's get started then. How are you doing today?";
 		question[6].answerNum = 4;
 		question[6].text[0] = "Just fine, how are you?";
 		question[6].next[0] = 12;
-		question[6].points[0] = 0;
+		question[6].points[0] = 1;
 		question[6].text[1] = "Dude, I am SOOO hung over.";
 		question[6].next[1] = 8;
-		question[6].points[1] = 0;
+		question[6].points[1] = -1;
 		question[6].text[2] = "Good."
 		question[6].next[2] = 12;
 		question[6].points[2] = 0;
 		question[6].text[3] = "How am I? Well that is a unique question to ask. Instead of asking something insightful, you ask a pointless question in the assumption that it will make us more comfortable. How am I? I'll tell you: I'm irritated and annoyed.";
 		question[6].next[3] = 12;
-		question[6].points[3] = 0;
+		question[6].points[3] = -2;
 
 		question.push({});
 		question[7].text = new Array();
 		question[7].next = new Array();
 		question[7].points = new Array();
-		question[7].q ="Ok, here we go, lets get started then. How are you doing today?";
+		question[7].q ="Ok, let's get started then. How are you today?";
 		question[7].answerNum = 4;
 		question[7].text[0] = "Just fine, how are you?";
 		question[7].next[0] = 12;
-		question[7].points[0] = 0;
+		question[7].points[0] = 1;
 		question[7].text[1] = "Dude, I am SOOO hung over.";
 		question[7].next[1] = 9;
-		question[7].points[1] = 0;
+		question[7].points[1] = -1;
 		question[7].text[2] = "Good.";
 		question[7].next[2] = 12;
 		question[7].points[2] = 0;
 		question[7].text[3] = "How am I? Well that is a unique question to ask. Instead of asking something insightful, you ask a pointless question in the assumption that it will make us more comfortable. How am I? I'll tell you, I'm irritated and annoyed.";
 		question[7].next[3] = 12;
-		question[7].points[3] = 0;
+		question[7].points[3] = -2;
 
 		question.push({});
 		question[8].text = new Array();
@@ -338,7 +338,7 @@ window.onload = function() {
 		question[8].answerNum = 3;
 		question[8].text[0] = "Just hurry up and get this over with.";
 		question[8].next[0] = 12;
-		question[8].points[0] = 0;
+		question[8].points[0] = -1;
 		question[8].text[1] = "No, I will be okay.";
 		question[8].next[1] = 12;
 		question[8].points[1] = 0;
@@ -357,7 +357,7 @@ window.onload = function() {
 		question[9].answerNum = 3;
 		question[9].text[0] = "Just hurry up and get this over with.";
 		question[9].next[0] = 12;
-		question[9].points[0] = 0;
+		question[9].points[0] = -1;
 		question[9].text[1] = "No, I will be okay.";
 		question[9].next[1] = 12;
 		question[9].points[1] = 0;
@@ -379,7 +379,7 @@ window.onload = function() {
 		question[10].points[0] = 0;
 		question[10].text[1] = "It isn't that good.";
 		question[10].next[1] = 12;
-		question[10].points[1] = 0;
+		question[10].points[1] = -1;
 		question[10].text[2] = "";
 		question[10].next[2] = q_index;
 		question[10].points[2] = 0;
@@ -398,7 +398,7 @@ window.onload = function() {
 		question[11].points[0] = 0;
 		question[11].text[1] = "It isn't that good.";
 		question[11].next[1] = 13;
-		question[11].points[1] = 0;
+		question[11].points[1] = -1;
 		question[11].text[2] = "";
 		question[11].next[2] = q_index;
 		question[11].points[2] = 0;
@@ -414,10 +414,10 @@ window.onload = function() {
 		question[12].answerNum = 4;
 		question[12].text[0] = "I am here to interview for the opening.";
 		question[12].next[0] = 18;
-		question[12].points[0] = 0;
+		question[12].points[0] = 1;
 		question[12].text[1] = "I'm not sure, could you help me to understand what this is all about?";
 		question[12].next[1] = 16;
-		question[12].points[1] = 0;
+		question[12].points[1] = -1;
 		question[12].text[2] = "I'm here to impress the cute receptionist you have in your lobby.";
 		question[12].next[2] = 14;
 		question[12].points[2] = 0;
@@ -425,6 +425,7 @@ window.onload = function() {
 		question[12].next[3] = 18;
 		question[12].points[3] = 0;
 
+//Q13 has different responses
 		question.push({});
 		question[13].text = new Array();
 		question[13].next = new Array();
@@ -433,16 +434,16 @@ window.onload = function() {
 		question[13].answerNum = 4;
 		question[13].text[0] =  "I am here to interview for the opening.";
 		question[13].next[0] = 15;
-		question[13].points[0] = 0;
+		question[13].points[0] = -1;
 		question[13].text[1] = "I'm not sure, could you help me to understand what this is all about?";
 		question[13].next[1] = 15;
 		question[13].points[1] = 0;
 		question[13].text[2] = "I'm here to impress the cute receptionist you have in your lobby.";
 		question[13].next[2] = 15;
-		question[13].points[2] = 0;
+		question[13].points[2] = -1;
 		question[13].text[3] = "For the job.";
 		question[13].next[3] = 15;
-		question[13].points[3] = 0;
+		question[13].points[3] = -2;
 
 		question.push({});
 		question[14].text = new Array();
@@ -452,17 +453,18 @@ window.onload = function() {
 		question[14].answerNum = 3;
 		question[14].text[0] = "I have no doubts that I will exceed all expectations.";
 		question[14].next[0] = 18;
-		question[14].points[0] = 0;
+		question[14].points[0] = 1;
 		question[14].text[1] = "We will see how well i do then.";
 		question[14].next[1] = 18;
 		question[14].points[1] = 0;
 		question[14].text[2] = "I need to do well? Well there goes that hope.";
 		question[14].next[2] = 18;
-		question[14].points[2] = 0;
+		question[14].points[2] = -1;
 		question[14].text[3] = "";
 		question[14].next[3] = q_index;
 		question[14].points[3] = 0;
 
+//q15 has different answers
 		question.push({});
 		question[15].text = new Array();
 		question[15].next = new Array();
@@ -493,10 +495,10 @@ window.onload = function() {
 		question[16].points[0] = 0;
 		question[16].text[1] = "Don't forget that this interview is two ways. As much as you say that it is important for me, remember that it was you that said that you were excited to meet me.";
 		question[16].next[1] = 17;
-		question[16].points[1] = 0;
+		question[16].points[1] = 1;
 		question[16].text[2] = "So this is the tone that you want to sent for the interview. Very well.";
 		question[16].next[2] = 17;
-		question[16].points[2] = 0;
+		question[16].points[2] = -1;
 		question[16].text[3] = "";
 		question[16].next[3] = q_index;
 		question[16].points[3] = 0;
@@ -512,7 +514,7 @@ window.onload = function() {
 		question[17].points[0] = 0;
 		question[17].text[1] = "Okay, but you have been warned.";
 		question[17].next[1] = 18;
-		question[17].points[1] = 0;
+		question[17].points[1] = -1;
 		question[17].text[2] = "";
 		question[17].next[2] = q_index;
 		question[17].points[2] = 0;
@@ -528,19 +530,19 @@ window.onload = function() {
 		question[18].answerNum = 6;
 		question[18].text[0] = "I see me as your boss, and with you groveling at my feet.";
 		question[18].next[0] = 19;
-		question[18].points[0] = 0;
+		question[18].points[0] = -2;
 		question[18].text[1] = "In an executive position where I can shape the direction of a company, hopefully this one.";
 		question[18].next[1] = 19;
-		question[18].points[1] = 0;
+		question[18].points[1] = 2;
 		question[18].text[2] = "Retired, living of the vast amount of wealth accumulated over the past 5 years.";
 		question[18].next[2] = 19;
-		question[18].points[2] = 0;
+		question[18].points[2] = -1;
 		question[18].text[3] = "I see myself progressing in the company, and learning new skills to benefit the company.";
 		question[18].next[3] = 19;
-		question[18].points[3] = 0;
+		question[18].points[3] = 1;
 		question[18].text[4] =  "I keep all options open, and do not plan that far ahead, so that I can make the decisions as they happen.";
 		question[18].next[4] = 19;
-		question[18].points[4] = 0;
+		question[18].points[4] = -1;
 		question[18].text[5] = "Same place as I am now, just with moderate advances.";
 		question[18].next[5] = 19;
 		question[18].points[6] = 0;
@@ -572,13 +574,13 @@ window.onload = function() {
 		question[20].answerNum = 4;
 		question[20].text[0] = "I like bossing people around.";
 		question[20].next[0] = 29;
-		question[20].points[0] = 0;
+		question[20].points[0] = -2;
 		question[20].text[1] = "It is a position that has a great impact in the direction of a company.";
 		question[20].next[1] = 29;
-		question[20].points[1] = 0;
+		question[20].points[1] = 2;
 		question[20].text[2] = "I enjoy assisting and improving the career paths of other employees.";
 		question[20].next[2] = 29;
-		question[20].points[2] = 0;
+		question[20].points[2] = 1;
 		question[20].text[3] = "Management is where the money and advances come from, that is what I am looking for.";
 		question[20].next[3] = 29;
 		question[20].points[3] = 0;
@@ -591,16 +593,16 @@ window.onload = function() {
 		question[21].answerNum = 4;
 		question[21].text[0] = "N * (N - 1)";
 		question[21].next[0] = 29;
-		question[21].points[0] = 0;
+		question[21].points[0] = 3;
 		question[21].text[1] = "In an undirected graph the Max achievable 137.";
 		question[21].next[1] = 29;
-		question[21].points[1] = 0;
+		question[21].points[1] = -2;
 		question[21].text[2] = "This is an unsolvable question with the information given";
 		question[21].next[2] = 29;
-		question[21].points[2] = 0;
+		question[21].points[2] = -1;
 		question[21].text[3] = "I will not answer any questions that are designed to put me on the spot like this.";
 		question[21].next[3] = 29;
-		question[21].points[3] = 0;
+		question[21].points[3] = -3;
 
 		question.push({});
 		question[22].text = new Array();
@@ -610,16 +612,16 @@ window.onload = function() {
 		question[22].answerNum = 4;
 		question[22].text[0] = "This is a great pen, especially for helpful for those who drop pens, as it is has a grip built in.";
 		question[22].next[0] = 23;
-		question[22].points[0] = 0;
+		question[22].points[0] = -1;
 		question[22].text[1] = "This a very sturdy pen.  Its Titanium design is resistant to all sorts of abuse, so you don't need to worry about damage.";
 		question[22].next[1] = 24;
-		question[22].points[1] = 0;
+		question[22].points[1] = -1;
 		question[22].text[2] = "This pen has style.  It is an award winning design sure to impress all who look at it.";
 		question[22].next[2] = 25;
-		question[22].points[2] = 0;
+		question[22].points[2] = -1;
 		question[22].text[3] = "Tell me a bit about yourself and what your challenges are.";
 		question[22].next[3] = 27;
-		question[22].points[3] = 0;
+		question[22].points[3] = 1;
 
 		question.push({});
 		question[23].text = new Array();
@@ -629,16 +631,16 @@ window.onload = function() {
 		question[23].answerNum = 4;
 		question[23].text[0] = "Well, let me tell you that this pen is strong, no need to worry about damaged pens with this titanium design.";
 		question[23].next[0] = 26;
-		question[23].points[0] = 0;
+		question[23].points[0] = -1;
 		question[23].text[1] = "Let me tell you that this pen has won several awards based on its design; it looks great.";
 		question[23].next[1] = 26;
-		question[23].points[1] = 0;
+		question[23].points[1] = -1;
 		question[23].text[2] = "I think you are overlooking the value in having a strong grip in a pen.  Sweaty hands at the end of the day cause embarrassing drops.";
 		question[23].next[2] = 26;
-		question[23].points[2] = 0;
+		question[23].points[2] = -2;
 		question[23].text[3] = "What is it that you are looking for then?";
 		question[23].next[3] = 27;
-		question[23].points[3] = 0;
+		question[23].points[3] = 1;
 
 		question.push({});
 		question[24].text = new Array();
@@ -648,16 +650,16 @@ window.onload = function() {
 		question[24].answerNum = 4;
 		question[24].text[0] = "Let me point out the grip of the pen; designed to prevent drops.";
 		question[24].next[0] = 26;
-		question[24].points[0] = 0;
+		question[24].points[0] = -1;
 		question[24].text[1] = "Allow me to point out the award winning design of the pen, sure to impress anyone that sees it.";
 		question[24].next[1] = 26;
-		question[24].points[1] = 0;
+		question[24].points[1] = -1;
 		question[24].text[2] = "I think you are underestimating the importance of strength, if someone steps on a weak pen, it could break and cause a mess.";
 		question[24].next[2] = 26;
-		question[24].points[2] = 0;
+		question[24].points[2] = -2;
 		question[24].text[3] = "What is it that you are looking for then?";
 		question[24].next[3] = 27;
-		question[24].points[3] = 0;
+		question[24].points[3] = 1;
 
 		question.push({});
 		question[25].text = new Array();
@@ -667,16 +669,16 @@ window.onload = function() {
 		question[25].answerNum = 4;
 		question[25].text[0] = "Let me point out the strenth of the pen, can survive an 18 wheeler running over it with no damage.";
 		question[25].next[0] = 26;
-		question[25].points[0] = 0;
+		question[25].points[0] = -1;
 		question[25].text[1] = "Let me point out the grip of the pen, designed to prevent drops.";
 		question[25].next[1] = 26;
-		question[25].points[1] = 0;
+		question[25].points[1] = -1;
 		question[25].text[2] = "I think you are underestimating the importance of appearance, a good appearance sets first impressions.";
 		question[25].next[2] = 26;
-		question[25].points[2] = 0;
+		question[25].points[2] = -2;
 		question[25].text[3] = "What is it that you are looking for then?";
 		question[25].next[3] = 27;
-		question[25].points[3] = 0;
+		question[25].points[3] = 1;
 
 		question.push({});
 		question[26].text = new Array();
@@ -689,10 +691,10 @@ window.onload = function() {
 		question[26].points[0] = 0;
 		question[26].text[1] = "Sorry I couldn't help you.";
 		question[26].next[1] = 27;
-		question[26].points[1] = 0;
+		question[26].points[1] = -1;
 		question[26].text[2] = "There is no pleasing some people.";
 		question[26].next[2] = 27;
-		question[26].points[2] = 0;
+		question[26].points[2] = -2;
 		question[26].text[3] = "";
 		question[26].next[3] = q_index;
 		question[26].points[3] = 0;
@@ -705,13 +707,13 @@ window.onload = function() {
 		question[27].answerNum = 4;
 		question[27].text[0] = "Our Titanium design is both non-magnetic, and will not melt in high temperatures.";
 		question[27].next[0] = 28;
-		question[27].points[0] = 0;
+		question[27].points[0] = 2;
 		question[27].text[1] = "Hmm, don't know how to help you.";
 		question[27].next[1] = 29;
-		question[27].points[1] = 0;
+		question[27].points[1] = -2;
 		question[27].text[2] = "You could have just told me that in the beginning, just for that, I will sell you nothing.";
 		question[27].next[2] = 29;
-		question[27].points[2] = 0;
+		question[27].points[2] = -2;
 		question[27].text[3] = "";
 		question[27].next[3] = q_index;
 		question[27].points[3] = 0;
@@ -724,13 +726,13 @@ window.onload = function() {
 		question[28].answerNum = 3;
 		question[28].text[0] = "Two dollars per pen.";
 		question[28].next[0] = 29;
-		question[28].points[0] = 0;
+		question[28].points[0] = 1;
 		question[28].text[1] = "Two dollars per pen, but if you buy one hundred, it is $1.75 per pen, and orders of 1,000 or more the price is $1.50 per pen, and orders above $10,000 are $1 per pen.";
 		question[28].next[1] = 29;
-		question[28].points[1] = 0;
+		question[28].points[1] = 3;
 		question[28].text[2] = "Not for sale, look what I have that you can't have";
 		question[28].next[2] = 29;
-		question[28].points[2] = 0;
+		question[28].points[2] = -3;
 		question[28].text[3] = "";
 		question[28].next[3] = q_index;
 		question[28].points[3] = 0;
@@ -743,16 +745,16 @@ window.onload = function() {
 		question[29].answerNum = 4;
 		question[29].text[0] = "No work at all.";
 		question[29].next[0] = 30;
-		question[29].points[0] = 0;
+		question[29].points[0] = -1;
 		question[29].text[1] =  "I will work on anything no matter how hard it is from 9am to 5pm, but after those time, it is my time.";
 		question[29].next[1] = 30;
 		question[29].points[1] = 0;
 		question[29].text[2] = "I want to always be challenged.";
 		question[29].next[2] = 30;
-		question[29].points[2] = 0;
+		question[29].points[2] = 1;
 		question[29].text[3] = "100% work, all the time.";
 		question[29].next[3] = 30;
-		question[29].points[3] = 0;
+		question[29].points[3] = -1;
 
 		question.push({});
 		question[30].text = new Array();
@@ -762,13 +764,13 @@ window.onload = function() {
 		question[30].answerNum = 4;
 		question[30].text[0] = "The old man to the hospital, saving a life is the most important.";
 		question[30].next[0] = 32;
-		question[30].points[0] = 0;
+		question[30].points[0] = -1;
 		question[30].text[1] = "Your best friend to the airport, you owe him your life and loyalty is most important.";
 		question[30].next[1] = 32;
-		question[30].points[1] = 0;
+		question[30].points[1] = -1;
 		question[30].text[2] = "The love of your life. Love is important, and the butterfly affect of missing out on this moment would impact not just you, but the potential family members in your future.";
 		question[30].next[2] = 32;
-		question[30].points[2] = 0;
+		question[30].points[2] = -1;
 		question[30].text[3] = "None of these.";
 		question[30].next[3] = 31;
 		question[30].points[3] = 0;
@@ -781,16 +783,16 @@ window.onload = function() {
 		question[31].answerNum = 4;
 		question[31].text[0] = "I refuse to answer this ridiculous question.";
 		question[31].next[0] = 32;
-		question[31].points[0] = 0;
+		question[31].points[0] = -2;
 		question[31].text[1] = "It is better to pick up no one than to pick one over the other.";
 		question[31].next[1] = 32;
-		question[31].points[1] = 0;
+		question[31].points[1] = -3;
 		question[31].text[2] = "I would cram them all into the car. I know it was against the rules, but I'm a rule breaker.";
 		question[31].next[2] = 32; 
-		question[31].points[2] = 0;
+		question[31].points[2] = -1;
 		question[31].text[3] = "I would get out of the car, hand the keys to my friend and tell him to drive the old man to the hospital, and then himself to the airport, which leaves me and the love of my life together on the street corner to get to know each other.";
 		question[31].next[3] = 32;
-		question[31].points[3] = 0;
+		question[31].points[3] = 3;
 
 		question.push({});
 		question[32].text = new Array();
@@ -800,16 +802,16 @@ window.onload = function() {
 		question[32].answerNum = 4;
 		question[32].text[0] = "I was fired.";
 		question[32].next[0] = 33;
-		question[32].points[0] = 0;
+		question[32].points[0] = -3;
 		question[32].text[1] = "The company was a mess and did not meet my standards.";
 		question[32].next[1] = 33;
-		question[32].points[1] = 0;
+		question[32].points[1] = -2;
 		question[32].text[2] = "They were a great company, but they were no longer challenging me in the areas I needed to be challenged in.";
 		question[32].next[2] = 33;
-		question[32].points[2] = 0;
+		question[32].points[2] = 2;
 		question[32].text[3] = "Because I wanted more money.";
 		question[32].next[3] = 33;
-		question[32].points[3] = 0;
+		question[32].points[3] = -1;
 
 		question.push({});
 		question[33].text = new Array();
@@ -819,16 +821,16 @@ window.onload = function() {
 		question[33].answerNum = 4;
 		question[33].text[0] = "I can get along with everyone. But the most important thing is that they are qualified for the job they are doing.";
 		question[33].next[0] = 34;
-		question[33].points[0] = 0;
+		question[33].points[0] = 2;
 		question[33].text[1] = "Someone who is relaxed, and nurtures. They preferably do not cause unneeded stress.";
 		question[33].next[1] = 34;
-		question[33].points[1] = 0;
+		question[33].points[1] = -1;
 		question[33].text[2] = "Someone that is super hot.";
 		question[33].next[2] = 34;
-		question[33].points[2] = 0;
+		question[33].points[2] = -2;
 		question[33].text[3] = "It does not matter to me.";
 		question[33].next[3] = 34;
-		question[33].points[3] = 0;
+		question[33].points[3] = -1;
 
 		question.push({});
 		question[34].text = new Array();
@@ -838,19 +840,19 @@ window.onload = function() {
 		question[34].answerNum = 5;
 		question[34].text[0] = "Attracting Hotties.";
 		question[34].next[0] = 35;
-		question[34].points[0] = 0;
+		question[34].points[0] = -2;
 		question[34].text[1] = "The meaningful purpose of a job, if I am working on exciting projects, it motivates me.";
 		question[34].next[1] = 35;
-		question[34].points[1] = 0;
+		question[34].points[1] = 2;
 		question[34].text[2] = "Money.";
 		question[34].next[2] = 35;
-		question[34].points[2] = 0;
+		question[34].points[2] = -1;
 		question[34].text[3] = "Recognition.";
 		question[34].next[3] = 35;
-		question[34].points[3] = 0;
+		question[34].points[3] = -1;
 		question[34].text[4] = "Promotions.";
 		question[34].next[4] = 35;
-		question[34].points[4] = 0;
+		question[34].points[4] = -1;
 
 		question.push({});
 		question[35].text = new Array();
@@ -860,16 +862,16 @@ window.onload = function() {
 		question[35].answerNum = 4;
 		question[35].text[0] = "Speed at all costs.";
 		question[35].next[0] = 36;
-		question[35].points[0] = 0;
+		question[35].points[0] = -1;
 		question[35].text[1] = "To approach my work with a carefully and methodically.";
 		question[35].next[1] = 37;
-		question[35].points[1] = 0;
+		question[35].points[1] = 2;
 		question[35].text[2] = "Prepare all the time so that I am ready in the moment.";
 		question[35].next[2] = 37;
-		question[35].points[2] = 0;
+		question[35].points[2] = 2;
 		question[35].text[3] = "Be flexible, and take things as they come.";
 		question[35].next[3] = 38;
-		question[35].points[3] = 0;
+		question[35].points[3] = -2;
 
 		question.push({});
 		question[36].text = new Array();
