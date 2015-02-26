@@ -69,7 +69,7 @@ window.onload = function() {
 	var question = [];
 	var questionAudio = [];
 	var q_index = 0;
-
+	var lastIndex = 0;
 	var numQuestions = 43;
 	//var start = 1;
 
@@ -136,6 +136,36 @@ window.onload = function() {
 			item.destroy(true);
 //			start = 0;
 		}
+		else if(q_index === 11){
+			if(item.name === "answer 0"){
+				item.text = "Thanks";
+			}
+			else if(item.name === "answer 1"){
+				item.text = "This SUCKS! Yuck!";
+			}
+		}
+		else if(q_index === 13){
+			if(item.name === "answer 0"){
+				item.text = "I am here to get in your opening.";
+			}
+			else if(item.name === "answer 1"){
+				item.text = "I don't understand what things are?";
+			}
+			else if(item.name === "answer 2"){
+				item.text = "Hey, that girl out there is HAWT!";
+			}
+			else if(item.name === "answer 3"){
+				item.text = "*Burp*";
+			}
+		}
+		else if(q_index === 15){
+			if(item.name === "answer 0"){
+				item.text = "I'll leave now.  Bye.";
+			}
+			else if(item.name === "answer 1"){
+				item.text = "You heard me!";
+			}
+		}
 	}
 
 	function up(item) {
@@ -145,11 +175,178 @@ window.onload = function() {
 			q_index = 0;
 		}
 		else{
-			for(var i=0; i<question[q_index].answerNum;i++){
-				if(item.name === "answer " + i){
-					points += question[q_index].points[i];
-					q_index = question[q_index].next[i];
-					break;
+			if(q_index === 43){
+				var job;
+				if(lastIndex === 15){
+					job = "Drunken Hobo.";
+				}
+				else if(lastIndex === 39){
+					if(points >= 15){
+						job = "Lobbyist";
+					}
+					else if(points >= 10){
+						job = "Lawyer";
+					}
+					else if(points >= 0){
+						job = "PR Manager";
+					}
+					else if(points >= -14){
+						job = "Used Car Salesman";
+					}
+					else{
+						job = "Dumpster Diver";
+					}
+				}
+				else if(lastIndex === 40){
+					if(item.name === "answer 0"){
+						if(points >= 15){
+							job = "R&D Engineer";
+						}
+						else if(points >= 0){
+							job = "Problem Resolution Specialist";
+						}
+						else if(points >= -14){
+							job = "Support Analyst";
+						}
+						else{
+							job = "Used Computer Store Clerk";
+						}
+					}
+					else if(item.name === "answer 1"){
+						if(points >= 15){
+							job = "Inside Sales Manager";
+						}
+						else if(points >= 0){
+							job = "Inside Sales Lead Specialist";
+						}
+						else if(points >= -14){
+							job = "TimeShare Phone Sales";
+						}
+						else{
+							job = "Human Sign Spinner";
+						}
+					}
+					else if(item.name === "answer 2"){
+						if(points >= 15){
+							job = "Credit Union Operations Manager";
+						}
+						else if(points >= 0){
+							job = "Business Analyst";
+						}
+						else if(points >= -14){
+							job = "Delivery Truck Driver";
+						}
+						else{
+							job = "Garbage Collector";
+						}
+					}
+				}
+				else if(lastIndex === 41){
+					if(item.name === "answer 0"){
+						if(points >= 15){
+							job = "Director of Sales";
+						}
+						else if(points >= 0){
+							job = "Ticket Manager";
+						}
+						else if(points >= -14){
+							job = "Gym Trainer";
+						}
+						else{
+							job = "Peanut Vender";
+						}
+					}
+					else if(item.name === "answer 1"){
+						if(points >= 15){
+							job = "Casino Property Manager";
+						}
+						else if(points >= 0){
+							job = "Hotel Manager";
+						}
+						else if(points >= -14){
+							job = "Catering Manager";
+						}
+						else{
+							job = "House Keeper";
+						}
+					}
+					else if(item.name === "answer 2"){
+						if(points >= 15){
+							job = "Training Development Director";
+						}
+						else if(points >= 0){
+							job = "Training Manager";
+						}
+						else if(points >= -14){
+							job = "Training Specialist";
+						}
+						else{
+							job = "Dog Trainer";
+						}
+					}
+				}
+				else if(lastIndex === "42"){
+					if(item.name === "answer 0"){
+						if(points >= 20){
+							job = "Aerospace Engineering Director";
+						}
+						else if(points >= 15){
+							job = "Engineering Manager";
+						else if(points >= 0){
+							job = "Nuclear Engineer";
+						}
+						else if(points >= -14){
+							job = "Mechanic";
+						}
+						else{
+							job = "Food Production Assembly Worker";
+						}
+					}
+					else if(item.name === "answer 1"){
+						if(points >= 20){
+							job = "CEO";
+						}
+						else if(points >= 15){
+							job = "Marketing Manager";
+						}
+						else if(points >= 0){
+							job = "Area Operations Manager";
+						}
+						else if(points >= -14){
+							job = "Merchandising Area Manager";
+						}
+						else{
+							job = "Mall Food Court Kiosk Manager";
+						}
+					}
+					else if(item.name === "answer 2"){
+						if(points >= 20){
+							job = "Hedge Fund Manager";
+						}
+						else if(points >= 15){
+							job = "Forensic Accountant";
+						}
+						else if(points >= 0){
+							job = "investment Analyst";
+						}
+						else if(points >= -14){
+							job = "Auto Loan Credit Analyst";
+						}
+						else{
+							job = "Tele Credit Card Sales";
+						}
+					}
+				}
+				questionText.text = "Your score was: " + points + ".  Your job fit is " + job;
+			}
+			else{
+				for(var i=0; i<question[q_index].answerNum;i++){
+					if(item.name === "answer " + i){
+						points += question[q_index].points[i];
+						lastIndex = q_index;
+						q_index = question[q_index].next[i];
+						break;
+					}
 				}
 			}
 		}
@@ -863,7 +1060,7 @@ window.onload = function() {
 		question[35].text[0] = "Speed at all costs.";
 		question[35].next[0] = 36;
 		question[35].points[0] = -1;
-		question[35].text[1] = "To approach my work with a carefully and methodically.";
+		question[35].text[1] = "To approach my work carefully and methodically.";
 		question[35].next[1] = 37;
 		question[35].points[1] = 2;
 		question[35].text[2] = "Prepare all the time so that I am ready in the moment.";
