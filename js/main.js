@@ -292,6 +292,7 @@ window.onload = function() {
 						}
 						else if(points >= 15){
 							job = "Engineering Manager";
+						}
 						else if(points >= 0){
 							job = "Nuclear Engineer";
 						}
